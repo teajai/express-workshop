@@ -3,9 +3,9 @@
 ********************/
 
 body, html, div, label, p, h1, h2, h3, h4, h5, h6, form, a, input, textarea {
-	margin: 0; 
-	padding: 0; 
-	border: 0; 
+	margin: 0;
+	padding: 0;
+	border: 0;
 	outline: none;
 }
 
@@ -53,7 +53,7 @@ main {
 header {
 	background: #FF0040;
 	background: -webkit-linear-gradient(#F5A9BC, #FF0040);
-	background: -o-linear-gradient(#F5A9BC, #FF0040); 
+	background: -o-linear-gradient(#F5A9BC, #FF0040);
 	background: -moz-linear-gradient(#F5A9BC, #FF0040);
 	background: linear-gradient(#F5A9BC, #FF0040);
 }
@@ -144,4 +144,20 @@ hr {
 	 .post {
 		width: 28.9%;
 	}
+}
+
+/* My styling */
+header a {
+	 text-decoration: none;
+}
+
+#test-link {
+	float:left;
+	text-align:right;
+	padding:20px 20px 0 0;
+}
+
+#bottom-container {
+	margin-bottom: 100px;
+	clear: both;
 }

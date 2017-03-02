@@ -1,4 +1,4 @@
-const TEST = false;
+const TEST = true;
 const BASE_DIR = __dirname ;
 const FILENAME = BASE_DIR + '/data/posts.json';
 const INDEX_FILE = BASE_DIR + '/public/index.html';
@@ -110,24 +110,25 @@ app.get("/test", function (req, res) {
 });
 
 app.get('/create-test-post', function (req, res) {
-    //testLog("\nGET TEST T");
-    //testLog(req.query); // fields for get only
+    testLog("\nGET TEST T");
+    testLog(req.query); // fields for get only
     testLog("req.body[" + req.body + "]"); // this is still undefined with express-formidable
-    //testLog(req.fields); // req.fields are only available in a POST request
+    testLog(req.fields); // req.fields are only available in a POST request
     testLog("req.url[" + req.url + "]");
     addItemToFIleTEST(req.query,res);
-    //testLog('Got the GET data');
+    testLog('Got the GET data');
 });
 
 app.post('/create-test-post', function (req, res) {
     testLog("\nPOST TEST T");
-    //testLog(req);
+    testLog(req);
     testLog("req.body[" + req.body + "]"); // this is still undefined with express-formidable
     testLog(req.fields); // data with POST
-    //testLog("req.url[" + req.url + "]");
+    testLog("req.url[" + req.url + "]");
     addItemToFIleTEST(req.fields,res);
-    //testLog('Got the POST data');
+    testLog('Got the POST data');
 });
+
 /* old code
 // Handle a request function - this is to handle http://ip:port/ requests
 app.get("/", function (req, res) {

@@ -9,23 +9,25 @@
     </head>
     <body>
         <header>
-            <a href="/">
+          <a href="/">
             <img class="main-logo" src="./img/logo1.png">
             <h1 class="title">Node Girls</h1>
           </a>
         </header>
         <main>
-            <div id="test-link">
-              <a href="/test">My test file</a>
-            </div>
-
             <div class="entry-container">
-                <!--PASTE YOUR CODE HERE!! -->
-                <h3>POST - Create a blog post</h3>
-                <form action="/create-post" method="POST">
-                  <textarea name="blogpost" rows="10" cols="14"></textarea>
-                  <button type="submit">Send</button>
-                </form>
+              <h3>POST - Create a blog post</h3>
+              <form action="/create-test-post" method="POST">
+                <textarea name="blogpost" rows="10" cols="14"></textarea>
+                <button type="submit">Send</button>
+              </form>
+              <br>
+              <h3>GET - Create a blog post</h3>
+              <form action="/create-test-post" method="GET">
+                <textarea name="blogpost" rows="10" cols="14"></textarea>
+                <button type="submit">Send</button>
+              </form>
+              <br>
             </div>
 
             <br/>
@@ -34,10 +36,10 @@
 
             <h2>Recent Posts</h2>
 
-            <div class="post-container"></div>
+            <div class="post-container">No posts in this test file</div>
             <div id="bottom-container"></div>
         </main>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script src="./script.js" type="text/javascript"></script>
+        <!-- script src="./script.js" type="text/javascript"></script -->
     </body>
 </html>
