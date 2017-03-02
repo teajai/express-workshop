@@ -1,7 +1,16 @@
-if (document.readyState !== 'loading') {
+// Fetch is experimental
+// https://developer.mozilla.org/en/docs/Web/API/Fetch_API
+// So if using a browser not supporting fetch then get an alert to try
+// another browser for this test
+if (typeof fetch !== "function") {
+  alert("This exercise is using an experimental function 'fetch' which is not supported by your browser. For this learning lesson can we suggest the latest version of Firefox or Chrome. ");
+}
+else {
+  if (document.readyState !== 'loading') {
     ready();
-} else {
-    document.addEventListener('DOMContentLoaded', ready);
+  } else {
+      document.addEventListener('DOMContentLoaded', ready);
+  }
 }
 
 function ready () {

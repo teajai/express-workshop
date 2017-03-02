@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Step 8 - Saving your blog post
 
 Right now, your precious blog posts aren't being saved anywhere, which is a bit of a shame.  Let's do something about that.
@@ -123,3 +124,12 @@ Good luck!
 | `fs` | A core Node.js module for interacting with the file system on your computer.  Read more [here](https://nodejs.org/dist/latest-v4.x/docs/api/fs.html#fs_file_system) |
 | `fs.readFile()` | Asynchronously reads the entire contents of a file |
 | `fs.writeFile()` | Asynchronously writes data to a file |
+=======
+# Step 8 - Displaying your blog posts
+
+So now we're saving the blog posts to the server.  Time to get them and display them on the page!
+
+If you look inside `public/script.js`, there's a whole bunch of JavaScript code in there.  Don't worry about what all the code means, just know that it's responsible for sending a request to GET old blog posts and display them on the page underneath "Recent Posts".
+
+`script.js` is trying to load existing posts by making a GET request. Look inside `script.js` and see if you can find any useful endpoints.
+>>>>>>> node-girls/step8

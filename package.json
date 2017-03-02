@@ -1,0 +1,29 @@
+{
+  "name": "express-workshop",
+  "version": "1.0.0",
+  "description": "node-girls workshop",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teajai/express-workshop.git"
+  },
+  "keywords": [
+    "node-girls",
+    "node",
+    "express-server"
+  ],
+  "author": "teajai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teajai/express-workshop/issues"
+  },
+  "homepage": "https://github.com/teajai/express-workshop#readme",
+  "dependencies": {
+    "express": "^4.15.0",
+    "express-formidable": "^1.0.0",
+    "node-fetch": "^1.6.3"
+  }
+}
