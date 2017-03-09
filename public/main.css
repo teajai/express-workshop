@@ -151,10 +151,39 @@ header a {
 	 text-decoration: none;
 }
 
+article p {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.postInner {
+	display: inline-block;
+}
+
+.postInner p,
+#test-link a,
+.prev-link a, .next-link a {
+	color: #585858;
+}
+
+.prev-link, .next-link  {
+	float:left;
+	width: 50%
+}
+
+.next-link {
+	text-align: right;
+}
+
 #test-link {
 	float:left;
 	text-align:right;
 	padding:20px 20px 0 0;
+}
+
+#prev-next-links {
+	padding-top: 40px;
+	padding-bottom: 40px;
 }
 
 #bottom-container {

@@ -74,18 +74,24 @@ function postBlogItem (form) { // Passed DOM object of form
 // Add items in 'data' to the list of items at the bottom of the page
 function addBlogpostsToPage (data) {
   for (var blogPost in data) {
-      var postDiv         = document.createElement('div');
-      var postText        = document.createElement('p');
-      var thumbnail       = document.createElement('img');
-      var postContainer   = document.getElementsByClassName('post-container')[0];
+    var postOuterDiv    = document.createElement('div');
+    var postLink        = document.createElement('a');
+    var postDiv         = document.createElement('div');
+    var postText        = document.createElement('p');
+    var thumbnail       = document.createElement('img');
+    var postContainer   = document.getElementsByClassName('post-container')[0];
 
-      thumbnail.src = "./img/logo2.png";
-      thumbnail.className = "thumbnail";
-      postText.innerHTML = data[blogPost];
-      postDiv.className = "post";
+    thumbnail.src = "./img/logo2.png";
+    thumbnail.className = "thumbnail";
+    postText.innerHTML = data[blogPost];
+    postDiv.className = "postInner"
+    postLink.href = "/posts/" + blogPost.toString();
+    postOuterDiv.className = "post";
 
-      postDiv.appendChild(thumbnail);
-      postDiv.appendChild(postText);
-      postContainer.appendChild(postDiv);
+    postDiv.appendChild(thumbnail);
+    postDiv.appendChild(postText);
+    postLink.appendChild(postDiv)
+    postOuterDiv.appendChild(postLink)
+    postContainer.appendChild(postOuterDiv);
   }
 }

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      {{!
+      Found a blog page giving more help how to use this Module
+      https://webapplog.com/handlebars/
+      I know this is mustache but some of the more basic option works here
+      May consider handlebars in the future
+      Any change to this view requires the server to be restarted to have
+      the change incorporated into the system
+      Basic template - not sure if the use of the visNext etc is the best
+      way to set a style within this template is the best way to handle the
+      display or hidding of prev/next links but it works.
+      }}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Blog Post - {{ title }}</title>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,300,700' rel='stylesheet' type='text/css'>
+        <link href="/main.css" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <a href="/">
+              <img class="main-logo" src="/img/logo1.png">
+              <h1 class="title">{{ title }}</h1>
+            </a>
+        </header>
+        <main>
+            <div id="test-link">
+              <a href="/test">My test file</a>
+            </div>
+
+            <article>
+              <h2>{{ date }}</h2>
+              <p>{{ post }}</p>
+            </article>
+
+            <div id="prev-next-links">
+              <div class="prev-link" style="visibility:{{ visPrev }}">
+                <a href="/posts/{{ idPrev }}">Previous post</a>
+              </div>
+              <div class="next-link" style="visibility:{{ visNext }}">
+                <a href="/posts/{{ idNext }}">Next post</a>
+              </div>
+            </div>
+            <div id="bottom-container"></div>
+        </main>
+    </body>
+</html>

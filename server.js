@@ -1,13 +1,22 @@
+// 3_extension-individual-blog-posts using mustache-individual blog posts
 const TEST = false;
 const BASE_DIR = __dirname ;
 const FILENAME = BASE_DIR + '/data/posts.json';
 const INDEX_FILE = BASE_DIR + '/public/index.html';
 const TEST_FILE = BASE_DIR + '/public/test-post-and-get.html';
+const POST_FILE = BASE_DIR + '/views';
 
-//Require express
+// request a weekday along with a long date
+const DISPLAY_DATE_OPTIONS = { weekday: 'long', year: 'numeric',
+                              month: 'long', day: 'numeric',
+                              hour:'numeric', minute:'numeric'};
+
+// Require express
 var express = require('express');
 var formidable = require('express-formidable');
 var fetch = require('node-fetch');
+// Module used for views/templates in node
+var mustacheExpress = require('mustache-express');
 
 // File that stores data
 var fs = require('fs');
@@ -15,11 +24,26 @@ var fs = require('fs');
 // Initialise server
 var app = express();
 
+/*
+Get warning "(node:13132) MaxListenersExceededWarning: Possible EventEmitter
+memory leak detected. 11 field listeners added. Use emitter.setMaxListeners()
+to increase limit"
+THe following was added to try to stop this problem. 
+*/
+require('events').EventEmitter.prototype._maxListeners = 100;
+
 // Get files from the public folder
 app.use(express.static("public"));
 
 // use the new module express-formidable
 app.use(formidable());
+
+// Register '.mustache' extension with The Mustache Express - folder 'views'
+app.engine('mustache', mustacheExpress());
+// Using template engines with Express
+// http://expressjs.com/en/guide/using-template-engines.html
+app.set('view engine', 'mustache');
+app.set('views', POST_FILE );
 
 function testLog( thingy ) {
   if ( TEST ) {
@@ -75,6 +99,43 @@ function addItemToFIleTEST(submittedData, res) {
 
 }
 
+function sendBlogPage(res, blogId, blogindex, jsonData) {
+    var dateHeader = "No blog found";
+    var postText = ""
+    var visPrev = "hidden";
+    var visNext = "hidden";
+    var idPrev = 0;
+    var idNext = 0;
+
+    if ( blogId !== null ) {
+      dateHeader = new Date(Number(blogId)).
+                    toLocaleDateString("en",DISPLAY_DATE_OPTIONS);
+      // testLog(dateHeader);
+      postText = jsonData[blogId];
+
+      // testLog("FOUND");
+      // testLog(Object.keys(jsonData)[0]);
+      // testLog(Object.keys(jsonData)[(Object.keys(jsonData).length)-1]);
+      if ( blogId !== Object.keys(jsonData)[0] ) {
+        visPrev = "visible";
+        idPrev = Object.keys(jsonData)[blogindex-1];
+      }
+      if ( blogId !== Object.keys(jsonData)[(Object.keys(jsonData).length)-1] ){
+        visNext = "visible";
+        idNext = Object.keys(jsonData)[blogindex+1];
+      }
+    }
+
+    res.render('post', { title:     "Post item",
+                          date:     dateHeader,
+                          post:     postText,
+                          id:       blogId,
+                          visPrev:  visPrev,
+                          idPrev:   idPrev,
+                          visNext:  visNext,
+                          idNext:   idNext });
+}
+
 app.get('/create-post', function (req, res) {
     testLog("GET T");
     testLog(req.query); // fields for get only
@@ -128,6 +189,42 @@ app.post('/create-test-post', function (req, res) {
     addItemToFIleTEST(req.fields,res);
     //testLog('Got the POST data');
 });
+
+// Code for 3_extension-individual-blog-posts
+// app.get('/posts/:postId', function (req, res) { - :postId indicates a flexible endpoint
+app.get('/posts/:postId', function (req, res) {
+    // testLog(req.params.postId.toString());
+
+    fs.readFile(FILENAME, 'utf8', function (err, filedata) {
+        if (err) throw err; // we'll not consider error handling for now
+        var jsonData = JSON.parse(filedata);
+        // testLog("jsonData length[" + Object.keys(jsonData).length + "]");
+        // testLog(jsonData);
+        // testLog(jsonData[1]);
+
+        var blogId = null;
+        var idx = 0;
+        for (var blogPost in jsonData) {
+          // testLog("blogPost[" + blogPost.toString() +
+          //             "] blogPostDate[" + new Date(Number(blogPost)).toLocaleDateString() +
+          //             "] jsonData[blogPost]["+ jsonData[blogPost] +
+          //             "]");
+
+          if ( req.params.postId === blogPost ) {
+            blogId = blogPost;
+            break;
+          }
+          idx++;
+        }
+
+        sendBlogPage(res, blogId, idx, jsonData);
+
+    });
+
+
+});
+
+
 /* old code
 // Handle a request function - this is to handle http://ip:port/ requests
 app.get("/", function (req, res) {
