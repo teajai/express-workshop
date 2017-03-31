@@ -1,5 +1,5 @@
 // 3_extension-individual-blog-posts using mustache-individual blog posts
-const TEST = false;
+const TEST = true;
 const BASE_DIR = __dirname ;
 const FILENAME = BASE_DIR + '/data/posts.json';
 const INDEX_FILE = BASE_DIR + '/public/index.html';
@@ -28,7 +28,7 @@ var app = express();
 Get warning "(node:13132) MaxListenersExceededWarning: Possible EventEmitter
 memory leak detected. 11 field listeners added. Use emitter.setMaxListeners()
 to increase limit"
-THe following was added to try to stop this problem. 
+THe following was added to try to stop this problem.
 */
 require('events').EventEmitter.prototype._maxListeners = 100;
 
@@ -76,14 +76,18 @@ function addItemToFIle(key, data, res) {
 function addItemToFIleAndSendJSON(submittedData, res) {
   var blogpost = submittedData['blogpost'];
   testLog(blogpost);
-  var now = Date.now().toString();
+  var dateTime = Date.now().toString();
+  testLog("now[" + dateTime.toString() + "]");
 
-  addItemToFIle( now, blogpost, res );
+  addItemToFIle( dateTime, blogpost, res );
 
   // testLog(now);
 
   res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({now : blogpost }));
+  // res.send(JSON.stringify({dateTime : blogpost })); sends "dateTime" as key
+  res.send(JSON.stringify(new function(){ this[dateTime] = blogpost; },
+                            null, '\t'));
+
 
 }
 

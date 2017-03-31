@@ -74,16 +74,58 @@ function postBlogItem (form) { // Passed DOM object of form
 // Add items in 'data' to the list of items at the bottom of the page
 function addBlogpostsToPage (data) {
   for (var blogPost in data) {
+    const DISPLAY_DATE_OPTIONS = { year: '2-digit',
+                                  month: 'numeric', day: 'numeric',
+                                  hour:'numeric', minute:'numeric',
+                                  hour12:false};
+
     var postOuterDiv    = document.createElement('div');
     var postLink        = document.createElement('a');
     var postDiv         = document.createElement('div');
     var postText        = document.createElement('p');
+    var postDate        = document.createElement('span')
     var thumbnail       = document.createElement('img');
     var postContainer   = document.getElementsByClassName('post-container')[0];
 
+    // var dateHeader = new Date(Number(blogPost)).
+    //               toLocaleDateString({ year: 'short',
+    //                                    month: 'short', day: 'numeric'}) + " ";
+    // var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    // var options = { weekday: 'long', year: 'numeric',
+    //                               month: 'long', day: 'numeric',
+    //                               hour:'numeric', minute:'numeric' };
+    // var dateHeader = new Date(Number(blogPost)).
+    //               toLocaleTimeString(DISPLAY_DATE_OPTIONS); // Not reliable
+    // var dateObj = new Date(Number(blogPost));
+    // var dateHeader = dateObj.getMonth() + " " dateObj.getDate() + " " + dateObj.getFullYear() + " eTania";
+    //                                                           // toLocaleDateString("en",DISPLAY_DATE_OPTIONS) ;
+    // dateHeader += new Date(Number(blogPost)).
+    //                             toLocaleTimeString(DISPLAY_DATE_OPTIONS);
+
+    var dateObj = new Date(Number(blogPost));
+    var hours = dateObj.getHours();
+    var minutes = dateObj.getMinutes();
+    var ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ampm;
+    var dateHeader = dateObj.getDate() + "/" + (dateObj.getMonth()+1) + "/" +
+                    dateObj.getFullYear() + "  " + strTime;
+
+    // It would be great to use toLocaleTimeString but it doesn't work and is
+    // crap to get it to format - what a jip
+
+    postDate.innerHTML = dateHeader;
+    postText.appendChild(postDate);
+
     thumbnail.src = "./img/logo2.png";
     thumbnail.className = "thumbnail";
-    postText.innerHTML = data[blogPost];
+    //postText.innerHTML = data[blogPost];
+    /* Change from innerHTML to createTextNode as innerHTML will render any
+    html-strings eg <strong> while in the full blog display this won't happen */
+    // Just a personal preference
+    postText.appendChild(document.createTextNode(data[blogPost]));
     postDiv.className = "postInner"
     postLink.href = "/posts/" + blogPost.toString();
     postOuterDiv.className = "post";

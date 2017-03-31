@@ -158,12 +158,35 @@ article p {
 
 .postInner {
 	display: inline-block;
+	/*text-overflow: ellipsis;*/
+	/*overflow: hidden;*/
+	/*white-space: nowrap;*/
+
+	/*overflow-wrap: break-word; works here or below
+			/* allow break in a word if it is going to overflow */
+	/*height: 54px;*/
+
 }
 
 .postInner p,
 #test-link a,
 .prev-link a, .next-link a {
 	color: #585858;
+	overflow-wrap: break-word; /* allow break in a word if it is going to overflow */
+	/* Also if break-word not added then ellipses dont appear */
+	text-overflow: ellipsis;
+	white-space: nowrap;
+  overflow: hidden;
+	font-size: 1em;
+}
+
+.postInner p span {
+	display: block;
+	font-size: 0.9em;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	font-weight: bold;
+
 }
 
 .prev-link, .next-link  {
